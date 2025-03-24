@@ -49,7 +49,11 @@ app.MapGet("/getTestUsers", async (NpgsqlDataSource dataSource) =>
     return Results.Ok(users);
 });
 app.MapDefaultEndpoints();
-
+app.MapGet("/getEnvironment", () =>
+{
+    var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+    return Results.Ok(new { Environment = environment });
+});
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
